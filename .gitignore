@@ -1,0 +1,8 @@
+*~
+*.pyc
+*.sqlite
+
+.ipynb_checkpoints/
+.idea/
+
+venv/

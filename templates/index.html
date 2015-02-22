@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block actual_content %}
+
+{% macro output_line(pathname, line, isdir) -%}
+    {% if isdir %}
+        {% if pathname=='/' %}
+            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+            <a href="/{{ line }}">{{ line }}</a><br />
+        {% else %}
+            {% if line=='..' %}
+                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                <a href="{{ parent_dir }}">{{ line }}</a><br />
+            {% else %}
+                <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                <a href="{{ pathname }}/{{ line }}">{{ line }}</a><br />
+            {% endif %}
+
+        {% endif %}
+
+    {% else %}
+        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+        {{ line }}<br />
+    {% endif %}
+{%- endmacro %}
+
+  <p>Contents for: {{ pathname }}</p>
+    <p>
+        {% for line, isdir in dict_of_files.iteritems() %}
+            <div class="row pippo">
+                <div class="col-md-12">
+
+                    {{ output_line(pathname, line, isdir) }}
+                </div>
+            </div>
+        {% endfor %}
+    </p>
+
+
+{% endblock %}
